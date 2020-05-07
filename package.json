@@ -1,0 +1,24 @@
+{
+  "name": "run-against-deploy-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dorshinar/run-against-deploy-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dorshinar/run-against-deploy-action/issues"
+  },
+  "homepage": "https://github.com/dorshinar/run-against-deploy-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^2.1.1"
+  }
+}
