@@ -4,12 +4,10 @@ inputs:
   token:
     description: "GitHub token"
     required: true
-  # repo:
-  #   description: "Repository name"
-  #   required: true
-  # owner:
-  #   description: "Repository owner"
-  #   required: true
+  retryInterval:
+    description: "Time to wait (in ms) between attempts to fetch deployment URL"
+    required: false
+    default: 10000
 outputs:
   deployment:
     description: "The url of the most recent deployment"

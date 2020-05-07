@@ -1,21 +1,35 @@
-# Hello world javascript action
+# Run against deploy action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action wait for a branch to be deployed, and outputs the deployment URL.
 
 ## Inputs
 
-### `who-to-greet`
+### `token`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** A GitHub access token to query the GraphQL API.
+
+### `retryInterval`
+
+Time to wait (in ms) between attempts to fetch deployment URL. defaults to 10000.
 
 ## Outputs
 
-### `time`
+### `deployment`
 
-The time we greeted you.
+The deployment URL, if one is found.
 
-## Example usage
+## Example Usage
 
-uses: actions/hello-world-javascript-action@v1
-with:
-who-to-greet: 'Mona the Octocat'
+```yaml
+- name: Get deployment URL
+  id: deployment
+  uses: dorshinar/run-against-deploy-action@v2
+  timeout-minutes: 5
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
+
+- name: Run end-to-end tests
+  run: npm run test:e2e
+  env:
+    deployment: ${{ steps.deployment.outputs.deployment }}
+```
