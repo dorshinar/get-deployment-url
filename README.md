@@ -23,7 +23,7 @@ The deployment URL, if one is found.
 ```yaml
 - name: Get deployment URL
   id: deployment
-  uses: dorshinar/run-against-deploy-action@v1.0.1
+  uses: dorshinar/get-deployment-url@v1.0.0
   timeout-minutes: 5
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
