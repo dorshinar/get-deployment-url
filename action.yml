@@ -1,6 +1,6 @@
 name: "Get Deployment URL"
 branding:
-  icon: check
+  icon: link
   color: green
 description: "Get the URL of the last deployment on a given branch"
 inputs:
