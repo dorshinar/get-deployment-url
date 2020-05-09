@@ -41,7 +41,7 @@ async function run() {
       deployment.repository.ref.target.deployments.edges[0].node.latestStatus
         .environmentUrl
     );
-    console.log("Deployment set", deployment);
+    console.log("Deployment set", JSON.stringify(deployment));
   } catch (error) {
     core.setFailed(error.message);
   }
