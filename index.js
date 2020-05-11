@@ -1,22 +1,29 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const query = require("./query.gql");
+const { get } = require("lodash-es");
 
 let token, octokit, branch, repo, owner, retryInterval;
 
 async function getDeployment(args) {
   await new Promise((resolve) => setTimeout(resolve, retryInterval));
   let result = await octokit.graphql(query, args);
-
-  while (
-    !result.repository.ref.target.deployments.edges[0].node.latestStatus
-      .environmentUrl
-  ) {
+  let environment = get(
+    result,
+    "repository.ref.target.deployments.edges[0].node.latestStatus.environmentUrl",
+    null
+  );
+  while (!environment) {
     console.log(
-      `environmentUrl is null, waiting ${retryInterval} milliseconds and trying again`
+      `environment is null, waiting ${retryInterval} milliseconds and trying again`
     );
     await new Promise((resolve) => setTimeout(resolve, retryInterval));
     result = await octokit.graphql(query, args);
+    environment = get(
+      result,
+      "repository.ref.target.deployments.edges[0].node.latestStatus.environmentUrl",
+      null
+    );
   }
   return result;
 }
@@ -41,7 +48,13 @@ async function run() {
       deployment.repository.ref.target.deployments.edges[0].node.latestStatus
         .environmentUrl
     );
-    console.log("Deployment set", JSON.stringify(deployment));
+    console.log(
+      "Deployment set: ",
+      JSON.stringify(
+        deployment.repository.ref.target.deployments.edges[0].node.latestStatus
+          .environmentUrl
+      )
+    );
   } catch (error) {
     core.setFailed(error.message);
   }
