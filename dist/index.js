@@ -27589,7 +27589,7 @@ async function getDeployment(args) {
   return result;
 }
 
-async function tryGetResult() {
+async function tryGetResult(args) {
   result = await octokit.graphql(query_default.a, args);
   edges = lodash_es_get(result, "repository.ref.target.deployments.edges")
   if (!edges) return null
