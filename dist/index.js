@@ -27581,48 +27581,34 @@ async function getDeployment(args) {
   let environment = null
   while (!environment) {
     environment = await tryGetResult(args)
-    if (!environment) {
+    if (!environment) 
       console.log(`environment is null, waiting ${retryInterval} milliseconds and trying again`)
-    }
     await new Promise((resolve) => setTimeout(resolve, retryInterval));
   }
-  return result;
+  return environment;
 }
 
 async function tryGetResult(args) {
   result = await octokit.graphql(query_default.a, args);
   edges = lodash_es_get(result, "repository.ref.target.deployments.edges")
   if (!edges) return null
-  return lodash_es_get(edges, `[0].node.latestStatus.environmentUr`, null);
+  return lodash_es_get(edges, `[0].node.latestStatus.environmentUrl`, null);
 }
 
 async function run() {
   try {
     token = Object(core.getInput)("token", { required: true });
-    octokit = new github.GitHub(token);
+    octokit = new github.GitHub(token)
     [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
     branch = process.env.GITHUB_REF.match(/(?<=refs\/heads\/).+/g)[0];
     retryInterval = Object(core.getInput)("retryInterval");
 
-    console.log("Starting to run with following input:", {
-      repo,
-      owner,
-      branch,
-    });
+    const args = { repo, owner, branch };
+    console.log("Starting to run with following input:", args);
 
-    const deployment = await getDeployment({ repo, owner, branch });
-    Object(core.setOutput)(
-      "deployment",
-      deployment.repository.ref.target.deployments.edges[0].node.latestStatus
-        .environmentUrl
-    );
-    console.log(
-      "Deployment set: ",
-      JSON.stringify(
-        deployment.repository.ref.target.deployments.edges[0].node.latestStatus
-          .environmentUrl
-      )
-    );
+    const deployment = await getDeployment(args);
+    Object(core.setOutput)("deployment", deployment);
+    console.log("Deployment set: ", JSON.stringify(deployment));
   } catch (error) {
     Object(core.setFailed)(error.message);
   }
