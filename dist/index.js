@@ -27578,7 +27578,7 @@ if (lodash_default_symIterator) {
 let token, octokit, branch, repo, owner, retryInterval;
 
 async function getDeployment(args) {
-  environment = null
+  let environment = null
   while (!environment) {
     environment = await tryGetResult(args)
     if (!environment) {
