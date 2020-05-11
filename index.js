@@ -3,9 +3,7 @@ import { GitHub } from "@actions/github";
 import query from "./query.gql";
 import { get } from "lodash-es";
 
-let token, octokit, branch, repo, owner, retryInterval;
-
-async function getDeployment(args) {
+async function getDeployment(args, retryInterval) {
   let environment = null
   while (!environment) {
     environment = await tryGetResult(args)
@@ -17,24 +15,23 @@ async function getDeployment(args) {
 }
 
 async function tryGetResult(args) {
-  result = await octokit.graphql(query, args);
-  edges = get(result, "repository.ref.target.deployments.edges")
+  const octokit = new GitHub(getInput("token", { required: true }))
+  const result = await octokit.graphql(query, args);
+  const edges = get(result, "repository.ref.target.deployments.edges")
   if (!edges) return null
   return get(edges, `[0].node.latestStatus.environmentUrl`, null);
 }
 
 async function run() {
   try {
-    token = getInput("token", { required: true });
-    octokit = new GitHub(token)
-    [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-    branch = process.env.GITHUB_REF.match(/(?<=refs\/heads\/).+/g)[0];
-    retryInterval = getInput("retryInterval");
+    const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
+    const branch = process.env.GITHUB_REF.match(/(?<=refs\/heads\/).+/g)[0];
+    const retryInterval = Number(getInput("retryInterval"))
 
     const args = { repo, owner, branch };
     console.log("Starting to run with following input:", args);
 
-    const deployment = await getDeployment(args);
+    const deployment = await getDeployment(args, retryInterval);
     setOutput("deployment", deployment);
     console.log("Deployment set: ", JSON.stringify(deployment));
   } catch (error) {
