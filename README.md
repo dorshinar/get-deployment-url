@@ -1,4 +1,4 @@
-# Run against deploy action
+# Get deployment URL
 
 This action wait for a branch to be deployed, and outputs the deployment URL.
 
