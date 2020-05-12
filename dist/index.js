@@ -27597,7 +27597,7 @@ async function tryGetResult(args) {
 async function run() {
   try {
     const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
-    const branch = process.env.GITHUB_REF.match(/(?<=refs\/heads\/).+/g)[0];
+    const branch = process.env.GITHUB_HEAD_REF.match(/(?<=refs\/heads\/).+/g)[0];
     const retryInterval = Number(Object(core.getInput)("retryInterval"))
 
     const args = { repo, owner, branch };
