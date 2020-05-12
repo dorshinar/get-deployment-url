@@ -29,15 +29,17 @@ async function run() {
     console.log(process.env.GITHUB_HEAD_REF)
     console.log(process.env.GITHUB_REF)
 
-    const branch = process.env.GITHUB_HEAD_REF.match(/(?<=refs\/heads\/).+/g)[0];
-    const retryInterval = Number(getInput("retryInterval"))
+    setFailed('incomplete');
 
-    const args = { repo, owner, branch };
-    console.log("Starting to run with following input:", args);
+    // const branch = process.env.GITHUB_HEAD_REF.match(/(?<=refs\/heads\/).+/g)[0];
+    // const retryInterval = Number(getInput("retryInterval"))
 
-    const deployment = await getDeployment(args, retryInterval);
-    setOutput("deployment", deployment);
-    console.log("Deployment set: ", JSON.stringify(deployment));
+    // const args = { repo, owner, branch };
+    // console.log("Starting to run with following input:", args);
+
+    // const deployment = await getDeployment(args, retryInterval);
+    // setOutput("deployment", deployment);
+    // console.log("Deployment set: ", JSON.stringify(deployment));
   } catch (error) {
     setFailed(error.message);
   }
