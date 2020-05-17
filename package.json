@@ -28,5 +28,9 @@
     "hooks": {
       "pre-commit": "ncc build index.js && git add dist/index.js"
     }
+  },
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.1",
+    "eslint": "^7.0.0"
   }
 }
