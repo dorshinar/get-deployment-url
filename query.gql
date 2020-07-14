@@ -16,5 +16,12 @@ module.exports = `query($repo: String!, $owner: String!, $branch: String!) {
       }
     }
   }
+  rateLimit {
+    cost
+    limit
+    nodeCount
+    remaining
+    resetAt
+  }
 }
 `
