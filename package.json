@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/dorshinar/run-against-deploy-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.4",
-    "@actions/github": "^2.1.1",
-    "husky": "^4.2.5",
-    "lodash": "^4.17.19",
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "husky": "^4.3.0",
+    "lodash": "^4.17.20",
     "lodash-es": "^4.17.15"
   },
   "husky": {
@@ -31,6 +31,6 @@
   },
   "devDependencies": {
     "@zeit/ncc": "^0.22.1",
-    "eslint": "^7.0.0"
+    "eslint": "^7.10.0"
   }
 }
