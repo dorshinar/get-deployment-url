@@ -23874,7 +23874,7 @@ async function getDeployment(args, retryInterval) {
 }
 
 async function tryGetResult(args) {
-  const octokit = new github.GitHub(Object(core.getInput)("token", { required: true }));
+  const octokit = Object(github.getOctokit)(Object(core.getInput)("token", { required: true }));
   const result = await octokit.graphql(query_default.a, args);
   await waitForRateLimitReset(result);
 
