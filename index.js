@@ -1,5 +1,5 @@
 import { getInput, setOutput, setFailed } from "@actions/core";
-import { GitHub } from "@actions/github";
+import { getOctokit } from "@actions/github";
 import { get } from "lodash-es";
 import query from "./query.gql";
 
@@ -17,7 +17,7 @@ async function getDeployment(args, retryInterval) {
 }
 
 async function tryGetResult(args) {
-  const octokit = new GitHub(getInput("token", { required: true }));
+  const octokit = getOctokit(getInput("token", { required: true }));
   const result = await octokit.graphql(query, args);
   await waitForRateLimitReset(result);
 
