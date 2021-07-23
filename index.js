@@ -1,4 +1,4 @@
-import { getInput, setOutput, setFailed } from "@actions/core";
+import { getInput, setOutput, setFailed, debug } from "@actions/core";
 import { getOctokit } from "@actions/github";
 import mm from "micromatch";
 import { get } from "lodash-es";
@@ -26,6 +26,7 @@ async function tryGetResult(args) {
   const edges = get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
 
+  debug(JSON.stringify(edges))
   return edges
     .map(edge => get(edge, `node.latestStatus.environmentUrl`, null))
     .find(url => url && mm.isMatch(url, pattern))
