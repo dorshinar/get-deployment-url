@@ -11840,7 +11840,7 @@ async function tryGetResult(args) {
   const edges = lodash_es_get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
 
-  (0,core.debug)(JSON.stringify(edges))
+  console.log(JSON.stringify(edges))
   return edges
     .map(edge => lodash_es_get(edge, `node.latestStatus.environmentUrl`, null))
     .find(url => url && micromatch_default().isMatch(url, pattern))
