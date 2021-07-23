@@ -11,6 +11,10 @@ inputs:
     description: "Time to wait (in ms) between attempts to fetch deployment URL"
     required: false
     default: 10000
+  pattern:
+    description: "Pattern the url must match in case there are multiple deployment urls"
+    required: false
+    default: '**'
 outputs:
   deployment:
     description: "The url of the most recent deployment"

@@ -12,6 +12,15 @@ This action wait for a branch to be deployed, and outputs the deployment URL.
 
 Time to wait (in ms) between attempts to fetch deployment URL. defaults to 10000.
 
+
+### `pattern`
+
+Pattern the url must match in case there are multiple deployment urls
+
+Uses https://github.com/micromatch/micromatch
+
+Example: `https://project-name-\w{9}-companyname\.vercel\.app/`
+
 ## Outputs
 
 ### `deployment`
