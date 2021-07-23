@@ -19,7 +19,8 @@
   "homepage": "https://github.com/dorshinar/run-against-deploy-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
+    "@actions/github": "^5.0.0",
+    "@vercel/ncc": "^0.29.0",
     "husky": "^4.3.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.15"
@@ -30,7 +31,6 @@
     }
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.1",
     "eslint": "^7.10.0"
   }
 }
