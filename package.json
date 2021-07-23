@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "ncc build index.js"
+    "build": "ncc build index.js",
+    "dev": "ncc build index.js --watch"
   },
   "repository": {
     "type": "git",
