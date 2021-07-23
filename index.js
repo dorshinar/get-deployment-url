@@ -26,7 +26,7 @@ async function tryGetResult(args) {
   const edges = get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
 
-  debug(JSON.stringify(edges))
+  console.log(JSON.stringify(edges))
   return edges
     .map(edge => get(edge, `node.latestStatus.environmentUrl`, null))
     .find(url => url && mm.isMatch(url, pattern))
