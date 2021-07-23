@@ -11840,10 +11840,12 @@ async function tryGetResult(args) {
   const edges = lodash_es_get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
 
-  console.log(JSON.stringify(edges))
   return edges
     .map(edge => lodash_es_get(edge, `node.latestStatus.environmentUrl`, null))
-    .find(url => url && micromatch_default().isMatch(url, pattern))
+    .find(url => {
+      console.log(url, pattern, micromatch_default().isMatch(url, pattern))
+      return url && micromatch_default().isMatch(url, pattern);
+  });
 }
 
 async function waitForRateLimitReset(result) {

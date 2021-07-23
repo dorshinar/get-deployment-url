@@ -26,10 +26,12 @@ async function tryGetResult(args) {
   const edges = get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
 
-  console.log(JSON.stringify(edges))
   return edges
     .map(edge => get(edge, `node.latestStatus.environmentUrl`, null))
-    .find(url => url && mm.isMatch(url, pattern))
+    .find(url => {
+      console.log(url, pattern, mm.isMatch(url, pattern))
+      return url && mm.isMatch(url, pattern);
+  });
 }
 
 async function waitForRateLimitReset(result) {
