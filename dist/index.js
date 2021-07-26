@@ -10237,7 +10237,7 @@ module.exports = `query($repo: String!, $owner: String!, $branch: String!) {
     ref(qualifiedName: $branch) {
       target {
         ... on Commit {
-          deployments(last: 1) {
+          deployments(last: 100) {
             edges {
               node {
                 latestStatus {
