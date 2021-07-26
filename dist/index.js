@@ -10242,6 +10242,7 @@ module.exports = `query($repo: String!, $owner: String!, $branch: String!) {
               node {
                 latestStatus {
                   environmentUrl
+                  state
                 }
               }
             }
@@ -11841,11 +11842,9 @@ async function tryGetResult(args) {
   if (!edges) return null;
 
   return edges
+    .filter(edge => lodash_es_get(edge, `node.latestStatus.state`) === 'SUCCESS')
     .map(edge => lodash_es_get(edge, `node.latestStatus.environmentUrl`, null))
-    .find(url => {
-      console.log(url, pattern, micromatch_default().isMatch(url, pattern))
-      return url && micromatch_default().isMatch(url, pattern);
-  });
+    .find(url => url && micromatch_default().isMatch(url, pattern));
 }
 
 async function waitForRateLimitReset(result) {

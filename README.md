@@ -15,11 +15,11 @@ Time to wait (in ms) between attempts to fetch deployment URL. defaults to 10000
 
 ### `pattern`
 
-Pattern the url must match in case there are multiple deployment urls
+To match a certain URL in the case of multiple deployments, you can match the URL.
 
 Uses https://github.com/micromatch/micromatch
 
-Example: `https://project-name-\w{9}-companyname\.vercel\.app/`
+Match a Vecel URL: `https://project-name-?????????-company.vercel.app`
 
 ## Outputs
 

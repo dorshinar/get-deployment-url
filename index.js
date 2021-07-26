@@ -27,11 +27,9 @@ async function tryGetResult(args) {
   if (!edges) return null;
 
   return edges
+    .filter(edge => get(edge, `node.latestStatus.state`) === 'SUCCESS')
     .map(edge => get(edge, `node.latestStatus.environmentUrl`, null))
-    .find(url => {
-      console.log(url, pattern, mm.isMatch(url, pattern))
-      return url && mm.isMatch(url, pattern);
-  });
+    .find(url => url && mm.isMatch(url, pattern));
 }
 
 async function waitForRateLimitReset(result) {

@@ -8,6 +8,7 @@ module.exports = `query($repo: String!, $owner: String!, $branch: String!) {
               node {
                 latestStatus {
                   environmentUrl
+                  state
                 }
               }
             }
