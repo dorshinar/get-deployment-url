@@ -19,7 +19,7 @@ To match a certain URL in the case of multiple deployments, you can match the UR
 
 Uses https://github.com/micromatch/micromatch
 
-Match a Vecel URL: `https://project-name-?????????-company.vercel.app`
+Match a Vercel URL: `https://project-name-?????????-company.vercel.app`
 
 ## Outputs
 
@@ -36,7 +36,7 @@ The deployment URL, if one is found.
   timeout-minutes: 5
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
-
+    pattern: https://graphcommerce-?????????-reachdigital.vercel.app
 - name: Run end-to-end tests
   run: npm run test:e2e
   env:
