@@ -1,5 +1,6 @@
-import { getInput, setOutput, setFailed } from "@actions/core";
+import { getInput, setOutput, setFailed, debug } from "@actions/core";
 import { getOctokit } from "@actions/github";
+import mm from "micromatch";
 import { get } from "lodash-es";
 import query from "./query.gql";
 
@@ -18,12 +19,17 @@ async function getDeployment(args, retryInterval) {
 
 async function tryGetResult(args) {
   const octokit = getOctokit(getInput("token", { required: true }));
+  const pattern = getInput("pattern");
   const result = await octokit.graphql(query, args);
   await waitForRateLimitReset(result);
 
   const edges = get(result, "repository.ref.target.deployments.edges");
   if (!edges) return null;
-  return get(edges, `[0].node.latestStatus.environmentUrl`, null);
+
+  return edges
+    .filter(edge => get(edge, `node.latestStatus.state`) === 'SUCCESS')
+    .map(edge => get(edge, `node.latestStatus.environmentUrl`, null))
+    .find(url => url && mm.isMatch(url, pattern));
 }
 
 async function waitForRateLimitReset(result) {

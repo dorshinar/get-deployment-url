@@ -12,6 +12,15 @@ This action wait for a branch to be deployed, and outputs the deployment URL.
 
 Time to wait (in ms) between attempts to fetch deployment URL. defaults to 10000.
 
+
+### `pattern`
+
+To match a certain URL in the case of multiple deployments, you can match the URL.
+
+Uses https://github.com/micromatch/micromatch
+
+Match a Vercel URL: `https://project-name-?????????-company.vercel.app`
+
 ## Outputs
 
 ### `deployment`
@@ -27,7 +36,7 @@ The deployment URL, if one is found.
   timeout-minutes: 5
   with:
     token: ${{ secrets.GITHUB_TOKEN }}
-
+    pattern: https://graphcommerce-?????????-reachdigital.vercel.app
 - name: Run end-to-end tests
   run: npm run test:e2e
   env:
