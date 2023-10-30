@@ -1,8 +1,13 @@
 {
   "name": "run-against-deploy-action",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "",
-  "main": "index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "ncc build index.js"
   },
@@ -18,8 +23,8 @@
   },
   "homepage": "https://github.com/dorshinar/run-against-deploy-action#readme",
   "dependencies": {
-    "@actions/core": "^1.9.1",
-    "@actions/github": "^4.0.0",
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
     "husky": "^8.0.3",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21"
@@ -30,7 +35,7 @@
     }
   },
   "devDependencies": {
-    "@zeit/ncc": "^0.22.1",
-    "eslint": "^7.10.0"
+    "@vercel/ncc": "^0.38.1",
+    "eslint": "^8.52.0"
   }
 }
