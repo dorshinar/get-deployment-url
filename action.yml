@@ -10,10 +10,10 @@ inputs:
   retryInterval:
     description: "Time to wait (in ms) between attempts to fetch deployment URL"
     required: false
-    default: 10000
+    default: '10000'
 outputs:
   deployment:
     description: "The url of the most recent deployment"
 runs:
-  using: "node12"
+  using: "node20"
   main: "dist/index.js"
